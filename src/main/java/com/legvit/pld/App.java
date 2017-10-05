@@ -18,5 +18,7 @@ public class App {
         final ApplicationContext context = new ClassPathXmlApplicationContext(CONFIG_PATH);
         final MinimalSpringApp minimalSpringApp = context.getBean(MinimalSpringApp.class);
         minimalSpringApp.sayHello();*/
+    	
+    	System.out.println("Prueba");
     }
 }
