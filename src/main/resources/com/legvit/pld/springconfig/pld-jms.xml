@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:p="http://www.springframework.org/schema/p" xmlns:jms="http://www.springframework.org/schema/jms"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="
+            http://www.springframework.org/schema/jms http://www.springframework.org/schema/jms/spring-jms-4.3.xsd
+			http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
+			http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
+    
+     <bean id="broker" class="org.apache.activemq.xbean.BrokerFactoryBean">
+        <property name="config" value="classpath:com/legvit/pld/springconfig/jms/activemq.xml" />
+        <property name="start" value="true" />
+    </bean>
+    
+    <bean id="AMQJmsFactory" class="org.apache.activemq.ActiveMQConnectionFactory">
+        <property name="brokerURL" value="tcp://localhost:9091"/> 
+    </bean>
+    
+    <bean id="JmsCachedConnectionFactory" class="org.springframework.jms.connection.CachingConnectionFactory">
+        <property name="targetConnectionFactory" ref="AMQJmsFactory"/>
+        <property name="sessionCacheSize" value="150"/>
+    </bean>
+    
+    <bean id="AsyncOutgoingDestination" class="org.apache.activemq.command.ActiveMQQueue">
+        <constructor-arg value="AsyncOutgoingQueue" />
+    </bean>
+    
+    <bean id="AsyncOutgoingJmsTemplate" class="org.springframework.jms.core.JmsTemplate">
+        <property name="connectionFactory" ref="JmsCachedConnectionFactory"/>
+        <property name="defaultDestination" ref="AsyncOutgoingDestination"/>
+    </bean>
+</beans>

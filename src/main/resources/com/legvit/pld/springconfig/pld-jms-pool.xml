@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:p="http://www.springframework.org/schema/p" xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="
+			http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
+			http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
+    
+    <!-- PLDMessageProducer MDP -->
+    <bean id="PLDMessageProducerTarget" class="com.legvit.pld.stallum.jms.PLDMessageProducer" scope="prototype">
+        <property name="jmsTemplate" ref="AsyncOutgoingJmsTemplate"></property>
+    </bean>
+    
+    <bean id="PLDMessageProducerPoolTargetSource" class="org.springframework.aop.target.CommonsPoolTargetSource">
+        <property name="targetBeanName" value="PLDMessageProducerTarget"/>
+        <property name="maxSize" value="5"/>
+        <property name="minIdle" value="1"/>
+    </bean>
+    
+    <bean id="PLDMessageProducer" class="org.springframework.aop.framework.ProxyFactoryBean">
+        <property name="targetSource" ref="PLDMessageProducerPoolTargetSource"/>
+    </bean>
+    
+</beans>

@@ -1,0 +1,24 @@
+<beans>
+    <broker xmlns="http://activemq.apache.org/schema/core" brokerName="PLDJMSBroker" useJmx="true" persistent="true" dataDirectory="ActiveMQ/ServiceData" useShutdownHook="true">
+        <networkConnectors>
+              <networkConnector networkTTL="1" conduitSubscriptions="true" duplex="true" dynamicOnly="true" uri="multicast://default"/>
+         </networkConnectors>
+        <persistenceAdapter>
+            <memoryPersistenceAdapter/>
+        </persistenceAdapter>
+		
+		<transportConnectors>
+            <transportConnector uri="tcp://0.0.0.0:9091" discoveryUri="multicast://default"/> 
+            <!--transportConnector name="jvm" uri="vm://localhost"/-->
+        </transportConnectors>
+        
+        <destinations>
+            <queue physicalName="AsyncOutgoingQueue" />
+        </destinations>
+        
+        <managementContext>
+            <managementContext createConnector="true" connectorPort="1099" />
+        </managementContext>
+        
+    </broker>
+</beans>
