@@ -45,6 +45,35 @@
 	    <version>4.3.11.RELEASE</version>
 	</dependency>
     
+    <!-- https://mvnrepository.com/artifact/org.quartz-scheduler/quartz -->
+	<dependency>
+		<groupId>org.quartz-scheduler</groupId>
+		<artifactId>quartz</artifactId>
+		<version>2.3.0</version>
+	</dependency>
     
+    <!-- https://mvnrepository.com/artifact/org.springframework/spring-context-support -->
+	<dependency>
+	    <groupId>org.springframework</groupId>
+	    <artifactId>spring-context-support</artifactId>
+	    <version>4.3.11.RELEASE</version>
+	</dependency>
+	    
+	<!-- https://mvnrepository.com/artifact/org.springframework/spring-jms -->
+	<dependency>
+	    <groupId>org.springframework</groupId>
+	    <artifactId>spring-jms</artifactId>
+	    <version>4.3.11.RELEASE</version>
+	</dependency>
+		
+<!-- https://mvnrepository.com/artifact/javax.jms/javax.jms-api -->
+<dependency>
+    <groupId>javax.jms</groupId>
+    <artifactId>javax.jms-api</artifactId>
+    <version>2.0</version>
+</dependency>
+
+	    
+	    
   </dependencies>
 </project>
