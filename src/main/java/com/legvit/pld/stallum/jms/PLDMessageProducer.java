@@ -18,15 +18,15 @@ public class PLDMessageProducer {
     }
     
     public void sendMessage(final String msg) throws JmsException {
-        jmsTemplate.send(new MessageCreator() {
+        /*jmsTemplate.send(new MessageCreator() {
             public Message createMessage(Session session) throws JMSException {
-        /*        if (log.isDebugEnabled()) {
+                if (log.isDebugEnabled()) {
                     log.debug("Sending msg: " + msg);
                 }
-          */      return session.createTextMessage(msg);
+                return session.createTextMessage(msg);
             }
 
-        });
+        });*/
     }
     
     public final void setJmsTemplate(JmsTemplate jmsTemplate) {

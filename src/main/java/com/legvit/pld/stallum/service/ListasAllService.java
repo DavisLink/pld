@@ -11,4 +11,6 @@ public interface ListasAllService {
 	List<ListasAll> getListaAll(String nombre) throws PldException;
 	
 	ListaPld doBusquedaCoincidenciaAll(String nombre, List<ListasAll> listaNegra, String nombreList, List<String> sociedadesMercantiles) throws PldException;
+	
+	void setPorcentajeMinimoCoinc(int porcentajeMinCoinc);
 }

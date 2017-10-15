@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import com.legvit.pld.stallum.comun.Comun;
 import com.legvit.pld.stallum.comun.PldException;
+import com.legvit.pld.stallum.dao.ClientesDAO;
 import com.legvit.pld.stallum.dao.ListasDAO;
 import com.legvit.pld.stallum.vo.Coincidencia;
 import com.legvit.pld.stallum.vo.Coincidencias;
@@ -23,7 +24,7 @@ import com.legvit.pld.stallum.vo.ListasAll;
  *
  * @author mcervantes
  */
-@Service(value="listasAllSrvice")
+@Service(value="listasAllService")
 public class ListasAllServiceImpl implements ListasAllService {
 
     private float porcentajeMinimoCoinc = 0.00f;
@@ -31,6 +32,9 @@ public class ListasAllServiceImpl implements ListasAllService {
     
     @Autowired
     ListasDAO listasDao;
+    
+    @Autowired 
+    ClientesDAO clientesDAO;
     
     public ListasAllServiceImpl() throws PldException{
         porcentajeMinimoCoinc = Float.valueOf("98");
@@ -40,8 +44,12 @@ public class ListasAllServiceImpl implements ListasAllService {
         porcentajeMinimoCoinc = Float.valueOf(porcentajeMinCoinc);
     }
 
+    public void setPorcentajeMinimoCoinc(int porcentajeMinCoinc) {
+    	porcentajeMinimoCoinc = Float.valueOf(porcentajeMinCoinc);
+    }
+    
     public List<ListasAll> getListaAll(String nombre) throws PldException {
-        return listasDao.findByNameAll(nombre);
+        return clientesDAO.findByNameAll(nombre);
     }
     
     public ListaPld doBusquedaCoincidenciaAll(String nombre, List<ListasAll> listaNegra, String nombreList, List<String> sociedadesMercantiles) throws PldException {

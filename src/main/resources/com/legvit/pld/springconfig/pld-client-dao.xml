@@ -6,7 +6,7 @@
 			http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
 			
 	<!-- Daos para representar las operaciones con tokens -->
-	<bean id="clientDataSource" class="com.legvit.pld.stallum.dao.ClientesDAOImpl">
+	<bean id="clientesDAO" class="com.legvit.pld.stallum.dao.Clie"src/main/resources/com/legvit/pld/springconfig/pld-client-dao.xml"ntesDAOImpl">
 	    <property name="dataSource" ref="clientDataSource" />
 	    <property name="queries">
 	        <props>
@@ -14,7 +14,39 @@
 	                <![CDATA[
 						SELECT PREFIJO_SOC_MERC FROM PLD_REEMPLAZOS_SOC_MER ORDER BY LEN(PREFIJO_SOC_MERC) DESC
 	                ]]>
-	            </prop>	          
+	            </prop>	
+	            
+	            <prop key="obten.registro.consulta">
+	                <![CDATA[
+						SELECT 
+							Id_mb_consulta
+					      ,id_cliente_crm
+					      ,status_consulta
+					      ,porcentaje_busqueda
+					      ,id_cliente
+					  FROM 
+					  	mb_consulta
+	                ]]>
+	            </prop>          
+	            
+	            <prop key="inserta.registro.mbconsulta">
+	                <![CDATA[
+						INSERT INTO mb_consulta
+						           (id_cliente_crm
+						           ,fecha_consulta
+						           ,status_consulta
+						           ,status_descripcion
+						           ,porcentaje_busqueda
+						           ,id_cliente)
+						     VALUES
+						           (?
+						           ,?
+						           ,?
+						           ,?
+						           ,?
+						           ,?)
+					]]>
+	            </prop>          
 	        </props>
 	    </property>
     </bean>

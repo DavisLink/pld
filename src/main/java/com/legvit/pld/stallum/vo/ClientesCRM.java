@@ -2,9 +2,9 @@ package com.legvit.pld.stallum.vo;
 
 public class ClientesCRM {
 
-	private int idCRM;
+	private String idCRM;
 	
-	private int idUnicoCliente;
+	private String idUnicoCliente;
 	
 	private String nombres;
 	
@@ -17,20 +17,40 @@ public class ClientesCRM {
 	private String tipoPersona;
 	
 	private String tipoCliente;
+	
+	private String idConsulta;
+	
+	private String fechaRegistro;
+	
+	public String getFechaRegistro() {
+		return fechaRegistro;
+	}
 
-	public int getIdCRM() {
+	public void setFechaRegistro(String fechaRegistro) {
+		this.fechaRegistro = fechaRegistro;
+	}
+
+	public String getIdConsulta() {
+		return idConsulta;
+	}
+
+	public void setIdConsulta(String idConsulta) {
+		this.idConsulta = idConsulta;
+	}
+
+	public String getIdCRM() {
 		return idCRM;
 	}
 
-	public void setIdCRM(int idCRM) {
+	public void setIdCRM(String idCRM) {
 		this.idCRM = idCRM;
 	}
 
-	public int getIdUnicoCliente() {
+	public String getIdUnicoCliente() {
 		return idUnicoCliente;
 	}
 
-	public void setIdUnicoCliente(int idUnicoCliente) {
+	public void setIdUnicoCliente(String idUnicoCliente) {
 		this.idUnicoCliente = idUnicoCliente;
 	}
 

@@ -7,26 +7,39 @@
 						http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd
 						http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd">
 						
-   
+   	<!-- ESQUEMA LISTA CLIENTES -->
     <bean id="pldDataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close">
-        <property name="driverClass" value="${jdbc.driverClassName}" />
-        <property name="jdbcUrl" value="${jdbc.pld_db_url}" />
-        <property name="user" value="${jdbc.username}" />
-        <property name="password" value="${jdbc.password}" />
-        <property name="maxPoolSize" value="${jdbc.maxPoolSize}" />
-        <property name="minPoolSize" value="${jdbc.minPoolSize}" />
-        <property name="maxStatements" value="${jdbc.maxStatements}" />
-        <property name="testConnectionOnCheckout" value="${jdbc.testConnection}" />
+        <property name="driverClass" value="com.mysql.jdbc.Driver" />
+        <property name="jdbcUrl" value="jdbc:mysql://localhost:3306/crm" />
+        <property name="user" value="legvit" />
+        <property name="password" value="12345678" />
+        <property name="maxPoolSize" value="50" />
+        <property name="minPoolSize" value="10" />
+        <property name="maxStatements" value="10" />
+        <property name="testConnectionOnCheckout" value="false" />
     </bean>
     
+    <!-- ESQUEMA PARA EJECUCION STORED PROCEDURE -->
      <bean id="clientDataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close">
-        <property name="driverClass" value="${jdbc.driverClassName}" />
-        <property name="jdbcUrl" value="${jdbc.pld_db_url}" />
-        <property name="user" value="${jdbc.username}" />
-        <property name="password" value="${jdbc.password}" />
-        <property name="maxPoolSize" value="${jdbc.maxPoolSize}" />
-        <property name="minPoolSize" value="${jdbc.minPoolSize}" />
-        <property name="maxStatements" value="${jdbc.maxStatements}" />
-        <property name="testConnectionOnCheckout" value="${jdbc.testConnection}" />
+        <property name="driverClass" value="com.microsoft.sqlserver.jdbc.SQLServerDriver" />
+        <property name="jdbcUrl" value="jdbc:sqlserver://localhost;DatabaseName=MONITOR;SelectMethod=cursor" />
+        <property name="user" value="SQLAAVA" />
+        <property name="password" value="12345678" />
+        <property name="maxPoolSize" value="50" />
+        <property name="minPoolSize" value="10" />
+        <property name="maxStatements" value="10" />
+        <property name="testConnectionOnCheckout" value="false" />
+    </bean>
+    
+    <!-- ESQUEMA PROPIA PLD_EXT -->
+    <bean id="pldExtDataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close">
+		<property name="driverClass" value="com.mysql.jdbc.Driver" />
+        <property name="jdbcUrl" value="jdbc:mysql://localhost:3306/pld_ext" />
+        <property name="user" value="legvit" />
+        <property name="password" value="12345678" />
+        <property name="maxPoolSize" value="50" />
+        <property name="minPoolSize" value="10" />
+        <property name="maxStatements" value="10" />
+        <property name="testConnectionOnCheckout" value="false" />
     </bean>
 </beans>

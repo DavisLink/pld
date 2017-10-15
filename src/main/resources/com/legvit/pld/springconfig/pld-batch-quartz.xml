@@ -13,7 +13,8 @@
     
     <bean id="CronTriggerExecuteBatchQuartz" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
         <property name="jobDetail" ref="JobDetailExecuteBatchQuartz" />
-        <property name="cronExpression" value="0/20 * * * * ?" />
+        <!--  <property name="cronExpression" value="0/20 * * * * ?" />-->
+        <property name="cronExpression" value="0 0 12 * * ?" />
         <!--   Seconds Minutes Hours Day-of-Month Month Day-of-Week Year(optional field)-->
     </bean>
 </beans>

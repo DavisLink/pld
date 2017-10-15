@@ -8,7 +8,7 @@ import com.legvit.pld.stallum.vo.ListasAll;
 
 public interface ListasDAO {
 
-	List<ListasAll> findByNameAll(String name) throws PldException;
-	
 	List<ClientesCRM> obtenClientesCRM();
+	
+	void insertaClienteCRM(ClientesCRM clienteCRM);
 }

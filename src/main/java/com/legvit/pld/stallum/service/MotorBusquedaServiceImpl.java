@@ -37,6 +37,9 @@ public class MotorBusquedaServiceImpl implements MotorBusquedaService {
     @Autowired
     ClientesDAO clientesDAO;
     
+    @Autowired
+    ListasAllService listasAllService;
+    
     public Persona busqCoincidenciasNombreAplicacionU(String nombre, int porcentajeMinCoinc) throws PldException {
         //Listas
         Cliente cliente = new Cliente();
@@ -62,7 +65,7 @@ public class MotorBusquedaServiceImpl implements MotorBusquedaService {
         ListaSitiService listaSitiService = new ListaSitiServiceImpl1(porcentajeMinCoinc);
         ListaWorldCheckService listaWorldCheckService = new ListaWorldCheckServiceImpl(porcentajeMinCoinc);*/
         //ListasAllService listaAll = new ListasAllServiceImpl(porcentajeMinCoinc);
-        ListasAllService listaAll = new ListasAllServiceImpl(porcentajeMinCoinc);
+        //ListasAllService listaAll = new ListasAllServiceImpl(porcentajeMinCoinc);
         System.out.println("  ============Fin getListas Concidencias========");
 
         //Cliente
@@ -79,7 +82,8 @@ public class MotorBusquedaServiceImpl implements MotorBusquedaService {
         //Lista All
         System.out.println("Lista ALL");
         List<ListasAll> listaAllCliente = new ArrayList<ListasAll>();
-        listaAllCliente = listaAll.getListaAll(nombreCliente);
+        listasAllService.setPorcentajeMinimoCoinc(porcentajeMinCoinc);
+        listaAllCliente = listasAllService.getListaAll(nombreCliente);
         System.out.println("Lista ALL");
         List<ListasAll> ListaN = new ArrayList<ListasAll>();
         List<ListasAll> ListaG = new ArrayList<ListasAll>();
@@ -102,7 +106,7 @@ public class MotorBusquedaServiceImpl implements MotorBusquedaService {
         if (ListaN.size() > 0) {
            System.out.println(">>> PROCESAMIENTO DE LA LISTA NEGRA..."+ListaN.size());
            // System.out.println(">>> " + new Date());
-            listaResultado = listaAll.doBusquedaCoincidenciaAll(nombreCliente, ListaN, "LISTA NEGRA", sociedadesMercantiles);
+            listaResultado = listasAllService.doBusquedaCoincidenciaAll(nombreCliente, ListaN, "LISTA NEGRA", sociedadesMercantiles);
             listaDeListaPld.add(listaResultado);
           System.out.println(">>> FIN PROCESAMIENTO DE LA LISTA NEGRA...");
            //System.out.println(">>> " + new Date());
@@ -111,7 +115,7 @@ public class MotorBusquedaServiceImpl implements MotorBusquedaService {
         if (ListaG.size() > 0) {
            System.out.println(">>> PROCESAMIENTO DE LA LISTA Gris..."+ListaG.size());
             //System.out.println(">>> " + new Date());
-            listaResultado = listaAll.doBusquedaCoincidenciaAll(nombreCliente, ListaG, "LISTA GRIS", sociedadesMercantiles);
+            listaResultado = listasAllService.doBusquedaCoincidenciaAll(nombreCliente, ListaG, "LISTA GRIS", sociedadesMercantiles);
             listaDeListaPld.add(listaResultado);
            System.out.println(">>> FIN PROCESAMIENTO DE LA LISTA Gris...");
             //System.out.println(">>> " + new Date());
@@ -119,7 +123,7 @@ public class MotorBusquedaServiceImpl implements MotorBusquedaService {
         if (ListaS.size() > 0) {
            System.out.println(">>> PROCESAMIENTO DE LA LISTA Siti..."+ListaS.size());
             //System.out.println(">>> " + new Date());
-            listaResultado = listaAll.doBusquedaCoincidenciaAll(nombreCliente, ListaS, "LISTA SITI", sociedadesMercantiles);
+            listaResultado = listasAllService.doBusquedaCoincidenciaAll(nombreCliente, ListaS, "LISTA SITI", sociedadesMercantiles);
             listaDeListaPld.add(listaResultado);
            System.out.println(">>> FIN PROCESAMIENTO DE LA LISTA Siti...");
             //System.out.println(">>> " + new Date());
@@ -127,7 +131,7 @@ public class MotorBusquedaServiceImpl implements MotorBusquedaService {
         if (ListaW.size() > 0) {
            System.out.println(">>> PROCESAMIENTO DE LA LISTA WorldCheck..."+ListaW.size());
             //System.out.println(">>> " + new Date());
-            listaResultado = listaAll.doBusquedaCoincidenciaAll(nombreCliente, ListaW, "LISTA WORLDCHECK", sociedadesMercantiles);
+            listaResultado = listasAllService.doBusquedaCoincidenciaAll(nombreCliente, ListaW, "LISTA WORLDCHECK", sociedadesMercantiles);
             listaDeListaPld.add(listaResultado);
            System.out.println(">>> FIN PROCESAMIENTO DE LA LISTA WorldCheck...");
             //System.out.println(">>> " + new Date());

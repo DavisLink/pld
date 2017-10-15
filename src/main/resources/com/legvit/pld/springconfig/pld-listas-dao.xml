@@ -12,9 +12,39 @@
 	        <props>
 	            <prop key="obten.clientes.crm">
 	                <![CDATA[
-					
+					SELECT 
+						idCRMCliente,
+					    idUnicoCliente,
+					    nombreRazonSocialCliente,
+					    apellidoPaternoCliente,
+					    apellidoMaternoCliente,
+					    tipoRazonSocialCliente,
+					    idTipoPersonaCliente,
+					    idTipoCliente
+					FROM 
+						crm.clientesxamdb
 	                ]]>
-	            </prop>	          
+	            </prop>	 
+	            
+	            
+	            <prop key="inserta.clientes.crm">
+	                <![CDATA[
+					INSERT INTO crm.ing_proceso_masivo_mdb
+						(
+						id_CRM,
+						resultado_busqueda,
+						id_consulta,
+						fecha_consulta,
+						)
+						VALUES
+						(
+						?,
+						?,
+						?,
+						?,
+						)
+	                ]]>
+	            </prop>	         
 	        </props>
 	    </property>
     </bean>

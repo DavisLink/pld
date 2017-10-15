@@ -16,17 +16,6 @@ import com.legvit.pld.stallum.vo.ListasAll;
 
 public class ListasDAOImpl extends SimpleQueryJdbcDaoSupport implements ListasDAO {
 
-	@Override
-	public List<ListasAll> findByNameAll(String name) throws PldException {
-		getJdbcTemplate().setResultsMapCaseInsensitive(true);
-		SimpleJdbcCall procListas = new SimpleJdbcCall(getJdbcTemplate())
-                .withProcedureName("spGetCleanList_temp_test_V")
-                .returningResultSet("listas", new BeanPropertyRowMapper<ListasAll>(ListasAll.class));
-		
-		Map<String, Object> m = procListas.execute(new Object[] { name });
-        return (List<ListasAll>) m.get("listas");
-    }
-	
 	/**
 	 * {@inheritDoc}
 	 */
@@ -36,17 +25,26 @@ public class ListasDAOImpl extends SimpleQueryJdbcDaoSupport implements ListasDA
 		List<ClientesCRM> listado = getJdbcTemplate().query(query, new RowMapper<ClientesCRM>() {
 			public ClientesCRM mapRow(ResultSet rs, int rowNum) throws SQLException {
 				ClientesCRM aux = new ClientesCRM();
-				aux.setIdCRM(rs.getInt("ID_CRM"));
-				aux.setIdUnicoCliente(rs.getInt("ID_UNICO"));
-				aux.setNombres(rs.getString("NOMBRE"));
-				aux.setApellidoPaterno(rs.getString("APPATERNO"));
-				aux.setApellidoMaterno(rs.getString("APMATERNO"));
-				aux.setTipoCliente(rs.getString("TIPOCLIENTE"));
-				aux.setTipoPersona(rs.getString("TIPOPERSONA"));
-				aux.setTipoRazonSocial(rs.getString("TIPORAZONSOCIAL"));
+				aux.setIdCRM(rs.getString("idCRMCliente"));
+				aux.setIdUnicoCliente(rs.getString("idUnicoCliente"));
+				aux.setNombres(rs.getString("nombreRazonSocialCliente"));
+				aux.setApellidoPaterno(rs.getString("apellidoPaternoCliente"));
+				aux.setApellidoMaterno(rs.getString("apellidoMaternoCliente"));
+				aux.setTipoCliente(rs.getString("idTipoCliente"));
+				aux.setTipoPersona(rs.getString("idTipoPersonaCliente"));
+				aux.setTipoRazonSocial(rs.getString("tipoRazonSocialCliente"));
 				return aux;
 			}
 		});
 		return listado;
+	}
+	
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public void insertaClienteCRM(ClientesCRM clienteCRM) {
+		String query = getQueries().getProperty("inserta.clientes.crm");
+		getJdbcTemplate().update(query, new Object[]{clienteCRM.getIdCRM(), "", clienteCRM.getIdConsulta(), clienteCRM.getFechaRegistro()});
 	}
 }

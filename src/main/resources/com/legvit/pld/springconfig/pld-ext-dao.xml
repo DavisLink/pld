@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:p="http://www.springframework.org/schema/p" xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="
+			http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
+			http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
+			
+	<!-- Daos para representar las operaciones con tokens -->
+	<bean id="pldExtDAO" class="com.legvit.pld.dao.ExtDAOImpl">
+	    <property name="dataSource" ref="pldExtDataSource" />
+	    <property name="queries">
+	        <props>
+	            <prop key="inserta.registro.control">
+	                <![CDATA[
+						INSERT INTO 
+							pld_ext.control_pld
+						(id_crm,
+						nombre_completo,
+						fecha_registro,
+						calificacion)
+						VALUES
+						(?,
+						?,
+						?,
+						?)
+	                ]]>
+	            </prop>
+	            
+	            <prop key="select.registro.control">
+	                <![CDATA[
+						SELECT
+							id_registro, 
+							id_crm,
+							nombre_completo,
+							fecha_registro,
+							calificacion
+						FROM
+							pld_ext.control_pld
+						WHERE 
+							id_crm = ?
+	                ]]>
+	            </prop>
+	            
+	            <prop key="select.registro.control.reciente">
+	                <![CDATA[
+						SELECT 
+							ctrl.id_crm,
+						    fecha_registro,
+						    calificacion,
+						    id_registro,
+						    nombre_completo
+						FROM
+							pld_ext.control_pld ctrl
+						INNER JOIN
+							(
+								SELECT 
+									id_crm, 
+						            MAX(fecha_registro) as max_fecha_registro 
+								FROM 
+									pld_ext.control_pld
+								GROUP BY id_crm
+						    ) rec
+						    on ctrl.id_crm = rec.id_crm
+						    AND
+								fecha_registro = max_fecha_registro
+						WHERE
+							ctrl.id_crm = ?
+	                ]]>
+	            </prop>
+	            
+	        </props>
+	    </property>
+    </bean>
+    
+</beans>

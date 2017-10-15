@@ -19,7 +19,7 @@ public class ExecuteBatchQuartz {
 	ClientesService clientesService;
 	
 	public void execute() {
-		System.out.println("Hola desde el cron ...");
+		/*System.out.println("Hola desde el cron ...");
 		
 		try {
 			List<ClientesCRM> listadoClientes = clientesService.obtenListadoClientes();
@@ -31,6 +31,6 @@ public class ExecuteBatchQuartz {
 			
 		} catch (PldException e) {
 			e.printStackTrace();
-		}
+		}*/
 	}
 }
