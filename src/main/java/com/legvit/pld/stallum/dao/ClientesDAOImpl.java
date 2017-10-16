@@ -1,17 +1,24 @@
 package com.legvit.pld.stallum.dao;
 
+import java.math.BigDecimal;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.jdbc.core.PreparedStatementCreator;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.simple.SimpleJdbcCall;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
+import org.springframework.jdbc.support.KeyHolder;
 
 import com.legvit.pld.stallum.comun.PldException;
 import com.legvit.pld.stallum.vo.ListasAll;
 import com.legvit.pld.stallum.vo.MbConsultaVO;
+import com.legvit.pld.vo.ClienteRelConsultaVO;
 
 public class ClientesDAOImpl extends SimpleQueryJdbcDaoSupport implements ClientesDAO {
 
@@ -62,11 +69,15 @@ public class ClientesDAOImpl extends SimpleQueryJdbcDaoSupport implements Client
 		}
 	};
 	
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
 	public MbConsultaVO obtenRegistroMBConsulta(String idCRM, String idClienteUnico) {
-		String query = getQueries().getProperty("");
+		String query = getQueries().getProperty("obten.registro.consulta");
 		List<MbConsultaVO> listadoConsulta = getJdbcTemplate().query(query, MbConsultaMapper, new Object[]{idCRM, idClienteUnico});
 		MbConsultaVO consultaVO = null;
-		if (listadoConsulta != null && listadoConsulta.isEmpty()) {
+		if (listadoConsulta != null && !listadoConsulta.isEmpty()) {
 			consultaVO = listadoConsulta.get(0);
 		}
 		return consultaVO;
@@ -76,8 +87,57 @@ public class ClientesDAOImpl extends SimpleQueryJdbcDaoSupport implements Client
 	 * {@inheritDoc}
 	 */
 	@Override
-	public void insertaRegistro(MbConsultaVO mbConsulta) {
-		String query = getQueries().getProperty("inserta.registro.mbconsulta");
-		getJdbcTemplate().update(query, new Object[]{mbConsulta.getIdClienteCRM(), new Date(),mbConsulta.getCalificacion(), mbConsulta.getCalificacion(), mbConsulta.getPorcentajeConsulta(), mbConsulta.getIdCliente()});
+	public int insertaRegistro(final MbConsultaVO mbConsulta) {
+		final String query = getQueries().getProperty("inserta.registro.mbconsulta");
+		KeyHolder keyHolder = new GeneratedKeyHolder();
+		getJdbcTemplate().update(new PreparedStatementCreator() {
+
+			@Override
+			public PreparedStatement createPreparedStatement(
+					Connection connection) throws SQLException {
+				PreparedStatement ps = connection.prepareStatement(query, new String[] { "Id_mb_consulta" });
+				ps.setString(1, mbConsulta.getIdClienteCRM());
+				ps.setDate(2, new java.sql.Date(mbConsulta.getFechaRegistro().getTime()));
+				ps.setString(3, mbConsulta.getCalificacion());
+				ps.setString(4, mbConsulta.getPorcentajeConsulta());
+				ps.setString(5, mbConsulta.getIdCliente());
+				return ps;
+			}
+		}, keyHolder);
+
+		int key = ((BigDecimal) keyHolder.getKey()).intValue();
+		return key;
+	}
+	
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public List<MbConsultaVO> obtenTopMBConsulta(String idCRM, String idClienteUnico) {
+		String query = getQueries().getProperty("obten.registro.consulta");
+		List<MbConsultaVO> listadoConsulta = getJdbcTemplate().query(query, MbConsultaMapper, new Object[]{idCRM, idClienteUnico});
+		return listadoConsulta;
+	}
+	
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public List<MbConsultaVO> obtenRegistros() {
+		String query = "SELECT * FROM mb_consulta";
+		List<MbConsultaVO> listado = getJdbcTemplate().query(query, MbConsultaMapper);
+		return listado;
+	}
+
+	@Override
+	public void insertaRegistroClienteRel(ClienteRelConsultaVO clienteRelVO) {
+		String query = getQueries().getProperty("inserta.registro.mbconsulta.cliente");
+		getJdbcTemplate().update(query, new Object[]{clienteRelVO.getIdMbConsulta(), clienteRelVO.getNombreCliente(), clienteRelVO.getApPaternoCliente(), clienteRelVO.getApMaternoCliente()});
+	}
+	
+	@Override
+	public void insertaRegistroBenefRel(ClienteRelConsultaVO clienteRelVO) {
+		String query = getQueries().getProperty("inserta.registro.mbconsulta.benef");
+		getJdbcTemplate().update(query, new Object[]{clienteRelVO.getIdMbConsulta(), clienteRelVO.getNombreCliente(), clienteRelVO.getApPaternoCliente(), clienteRelVO.getApMaternoCliente()});
 	}
 }

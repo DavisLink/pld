@@ -19,5 +19,5 @@ public interface ReglasService {
 	 * @param nombreCompleto
 	 *            Nombre completo del cliente a validar.
 	 */
-	void primeraRegla(ClientesCRM clienteCRM, int noCoincidencias);
+	void validaReglas(ClientesCRM clienteCRM, int noCoincidencias, float porcentajeCoincidencia, int calificacion);
 }

@@ -71,7 +71,7 @@ public class ExtDAOImpl extends SimpleQueryJdbcDaoSupport implements ExtDAO {
 		String query = getQueries().getProperty("select.registro.control.reciente");
 		List<ControlPLDVO> listadoControl = getJdbcTemplate().query(query, RegistroControlCRM, new Object[]{idCRM});
 		ControlPLDVO aux = null;
-		if (listadoControl != null && listadoControl.size() > 0) {
+		if (listadoControl != null && !listadoControl.isEmpty()) {
 			aux = listadoControl.get(0);
 		}
 		return aux;

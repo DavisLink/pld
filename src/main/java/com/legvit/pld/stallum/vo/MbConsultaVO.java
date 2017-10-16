@@ -1,5 +1,7 @@
 package com.legvit.pld.stallum.vo;
 
+import java.util.Date;
+
 public class MbConsultaVO {
 
 	private String idMbConsulta;
@@ -11,6 +13,16 @@ public class MbConsultaVO {
 	private String porcentajeConsulta;
 	
 	private String idCliente;
+	
+	private Date fechaRegistro;
+	
+	public Date getFechaRegistro() {
+		return fechaRegistro;
+	}
+
+	public void setFechaRegistro(Date fechaRegistro) {
+		this.fechaRegistro = fechaRegistro;
+	}
 
 	public String getIdMbConsulta() {
 		return idMbConsulta;

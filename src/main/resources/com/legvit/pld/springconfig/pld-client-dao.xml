@@ -6,7 +6,7 @@
 			http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
 			
 	<!-- Daos para representar las operaciones con tokens -->
-	<bean id="clientesDAO" class="com.legvit.pld.stallum.dao.Clie"src/main/resources/com/legvit/pld/springconfig/pld-client-dao.xml"ntesDAOImpl">
+	<bean id="clientesDAO" class="com.legvit.pld.stallum.dao.ClientesDAOImpl">
 	    <property name="dataSource" ref="clientDataSource" />
 	    <property name="queries">
 	        <props>
@@ -18,7 +18,7 @@
 	            
 	            <prop key="obten.registro.consulta">
 	                <![CDATA[
-						SELECT 
+						SELECT top 5 
 							Id_mb_consulta
 					      ,id_cliente_crm
 					      ,status_consulta
@@ -26,6 +26,10 @@
 					      ,id_cliente
 					  FROM 
 					  	mb_consulta
+					  WHERE 	
+					  	id_cliente_crm = ?
+					  AND
+					  	id_cliente = ?
 	                ]]>
 	            </prop>          
 	            
@@ -46,7 +50,33 @@
 						           ,?
 						           ,?)
 					]]>
-	            </prop>          
+	            </prop>     
+	            
+	             <prop key="inserta.registro.mbconsulta.cliente">
+	                <![CDATA[
+					INSERT INTO mb_consulta_cliente
+							(
+					      ,id_mb_consulta
+					      ,nombre_cliente
+					      ,apaterno_cliente
+					      ,amaterno_clientE)
+					      VALUES (?,?,?,?)
+	            ]]>
+	            </prop>  
+	                 
+	            <prop key="inserta.registro.mbconsulta.benef">
+	                <![CDATA[     
+	                 	INSERT INTO
+	                 		mb_consulta_beneficiario
+	                 			(id_mb_consulta
+						      ,nombre_beneficiario
+						      ,apaterno_beneficiario
+						      ,amaterno_beneficiario
+						 		)
+						      VALUES
+						      (?,?,?,?)
+	                 ]]>
+	            </prop>  
 	        </props>
 	    </property>
     </bean>

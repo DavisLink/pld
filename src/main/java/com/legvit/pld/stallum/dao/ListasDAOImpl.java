@@ -13,6 +13,7 @@ import org.springframework.jdbc.core.simple.SimpleJdbcCall;
 import com.legvit.pld.stallum.comun.PldException;
 import com.legvit.pld.stallum.vo.ClientesCRM;
 import com.legvit.pld.stallum.vo.ListasAll;
+import com.legvit.pld.vo.RelacionadosVO;
 
 public class ListasDAOImpl extends SimpleQueryJdbcDaoSupport implements ListasDAO {
 
@@ -46,5 +47,30 @@ public class ListasDAOImpl extends SimpleQueryJdbcDaoSupport implements ListasDA
 	public void insertaClienteCRM(ClientesCRM clienteCRM) {
 		String query = getQueries().getProperty("inserta.clientes.crm");
 		getJdbcTemplate().update(query, new Object[]{clienteCRM.getIdCRM(), "", clienteCRM.getIdConsulta(), clienteCRM.getFechaRegistro()});
+	}
+	
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public List<RelacionadosVO> obtenRelacionados(String idCRM){
+		String query = getQueries().getProperty("obten.clientes.relacionados");
+		List<RelacionadosVO> listado = getJdbcTemplate().query(query, new RowMapper<RelacionadosVO>() {
+
+			@Override
+			public RelacionadosVO mapRow(ResultSet rs, int rowNum) throws SQLException {
+				RelacionadosVO relacionado = new RelacionadosVO();
+				relacionado.setApeMaternoRelacionado(rs.getString("apellidoMaternoRelacionado"));
+				relacionado.setApePaternoRelacionado(rs.getString("apellidoPaternoRelacionado"));
+				relacionado.setIdCRMCliente(rs.getString("idCRMCliente"));
+				relacionado.setIdCRMRelacionado(rs.getString("idCRMRelacionado"));
+				relacionado.setNombreRazonSocialRelacionado(rs.getString("nombreRazonSocialRelacionado"));
+				relacionado.setTipoPersonaRelacionado(rs.getString("tipoPersonaRelacionado"));
+				relacionado.setTipoRazonSocialRelacionado(rs.getString("tipoRazonSocialRelacionado"));
+				relacionado.setTipoRelacionConClienteRelacionado(rs.getString("tipoRelacionConClienteRelacionado"));
+				return relacionado;
+			}
+		});
+		return listado;
 	}
 }

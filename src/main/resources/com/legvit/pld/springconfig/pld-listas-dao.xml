@@ -44,7 +44,23 @@
 						?,
 						)
 	                ]]>
-	            </prop>	         
+	            </prop>	        
+	            
+	            <prop key="obten.clientes.relacionados">
+	                <![CDATA[
+					SELECT 
+						idCRMCliente,
+					    idCRMRelacionado,
+					    nombreRazonSocialRelacionado,
+					    apellidoPaternoRelacionado,
+					    apellidoMaternoRelacionado,
+					    tipoPersonaRelacionado,
+					    tipoRazonSocialRelacionado,
+					    tipoRelacionConClienteRelacionado
+					FROM 
+						crm.clientesyrelacionadosxamdb
+	                ]]>
+	            </prop>	     
 	        </props>
 	    </property>
     </bean>
