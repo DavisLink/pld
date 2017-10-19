@@ -22,27 +22,22 @@
 					    idTipoPersonaCliente,
 					    idTipoCliente
 					FROM 
-						crm.clientesxamdb
+						sugarcrm_qa.view_clientesxamdb
 	                ]]>
 	            </prop>	 
 	            
 	            
 	            <prop key="inserta.clientes.crm">
 	                <![CDATA[
-					INSERT INTO crm.ing_proceso_masivo_mdb
+					INSERT INTO sugarcrm_qa.ing_proceso_masivo_MdB
 						(
 						id_CRM,
 						resultado_busqueda,
 						id_consulta,
-						fecha_consulta,
+						fecha_consulta
 						)
 						VALUES
-						(
-						?,
-						?,
-						?,
-						?,
-						)
+						(?,?,?,?)
 	                ]]>
 	            </prop>	        
 	            
@@ -58,7 +53,7 @@
 					    tipoRazonSocialRelacionado,
 					    tipoRelacionConClienteRelacionado
 					FROM 
-						crm.clientesyrelacionadosxamdb
+						sugarcrm_qa.view_clientesyrelacionadosxamdb
 	                ]]>
 	            </prop>	     
 	        </props>

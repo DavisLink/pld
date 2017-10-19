@@ -17,9 +17,11 @@
 						(id_crm,
 						nombre_completo,
 						fecha_registro,
-						calificacion)
+						calificacion,
+						no_coincidencias)
 						VALUES
 						(?,
+						?,
 						?,
 						?,
 						?)
@@ -57,7 +59,7 @@
 									id_crm, 
 						            MAX(fecha_registro) as max_fecha_registro 
 								FROM 
-									pld_ext.control_pld
+									pld.control_pld
 								GROUP BY id_crm
 						    ) rec
 						    on ctrl.id_crm = rec.id_crm

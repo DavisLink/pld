@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:p="http://www.springframework.org/schema/p" xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="
+			http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
+			http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
+			
+	<!-- Daos para representar las operaciones con tokens -->
+	<bean id="clientesOraDAO" class="com.legvit.pld.stallum.dao.ClientesOraDAOImpl">
+	    <property name="dataSource" ref="clientOracleDataSource" />
+	    <property name="queries">
+	        <props>
+	            <prop key="obten.registro.consulta">
+	                <![CDATA[	                
+						SELECT  
+						    ID_MB_CONSULTA
+						    ,ID_CLIENTE_CRM
+						    ,STATUS_CONSULTA	
+						    ,PORCENTAJE_BUSQUEDA
+						    ,ID_CLIENTE
+						  FROM 
+						    MB_CONSULTA_BATCH
+						  where ROWNUM <= 5
+						  and	ID_CLIENTE_CRM = ?
+						  And  	ID_CLIENTE = ? 	
+						  ORDER BY FECHA_CONSULTA DESC                	              
+	                ]]>
+	            </prop>          
+	            
+	            <prop key="inserta.registro.mbconsulta">
+	                <![CDATA[
+						INSERT INTO MB_CONSULTA_BATCH
+						           (ID_MB_CONSULTA,
+						           ID_CLIENTE_CRM
+						           ,FECHA_CONSULTA
+						           ,STATUS_CONSULTA
+						           ,STATUS_DESCRIPCION
+						           ,PORCENTAJE_BUSQUEDA
+						           ,ID_CLIENTE)
+						     VALUES
+						           (BATCH_MB_CONSULTA_SEQ.NEXTVAL
+						           ,?
+						           ,?
+						           ,?
+						           ,?
+						           ,?
+						           ,?)
+					]]>
+	            </prop>     
+	            
+	             <prop key="inserta.registro.mbconsulta.cliente">
+	                <![CDATA[
+					INSERT INTO MB_CONSULTA_CLIENTE_BATCH
+							(ID_MB_CONSULTA_CLIENTE,
+					      ,ID_MB_CONSULTA
+					      ,NOMBRE_CLIENTE
+					      ,APATERNO_CLIENTE
+					      ,AMATERNO_CLIENTE)
+					      VALUES (BATCH_MB_CONSULTA_BEN_SEQ.NEXTVAL,?,?,?,?)
+	            ]]>
+	            </prop>  
+	                 
+	            <prop key="inserta.registro.mbconsulta.benef">
+	                <![CDATA[     
+	                 	INSERT INTO
+	                 		MB_CONSULTA_BENEFICIARIO_BATCH
+	                 			(ID_MB_CONSULTA_BENEFICIARIO
+	                 			,ID_MB_CONSULTA
+						      ,NOMBRE_BENEFICIARIO
+						      ,APATERNO_BENEFICIARIO
+						      ,AMATERNO_BENEFICIARIO)
+						      VALUES
+						      (BATCH_MB_CONSULTA_CLIENTE_SEQ.NEXTVAL,?,?,?,?)
+	                 ]]>
+	            </prop>
+	            
+	            
+	            <prop key="inserta.registro.control">
+	                <![CDATA[
+						INSERT INTO 
+							control_pld
+						(id_registro,
+						id_crm,
+						nombre_completo,
+						fecha_registro,
+						calificacion,
+						no_coincidencias)
+						VALUES
+						(BATCH_CONTROL_PLD_SEQ.NEXTVAL,
+						?,
+						?,
+						?,
+						?,
+						?)
+	                ]]>
+	            </prop>
+	            
+	            <prop key="select.registro.control">
+	                <![CDATA[
+						SELECT
+							id_registro, 
+							id_crm,
+							nombre_completo,
+							fecha_registro,
+							calificacion
+						FROM
+							control_pld
+						WHERE 
+							id_crm = ?
+	                ]]>
+	            </prop>
+	            
+	            <prop key="select.registro.control.reciente">
+	                <![CDATA[
+						SELECT 
+  							ctrl.id_crm,
+  						    fecha_registro,
+  						    calificacion,
+  						    id_registro,
+  						    nombre_completo
+  						FROM
+  							control_pld ctrl
+  						WHERE
+  							ROWNUM <= 1 
+						AND 
+							ctrl.id_crm = ?
+						ORDER BY FECHA_REGISTRO DESC
+	                ]]>
+	            </prop>
+	            
+	              
+	        </props>
+	    </property>
+    </bean>
+</beans>

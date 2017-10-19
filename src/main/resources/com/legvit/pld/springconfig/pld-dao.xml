@@ -7,7 +7,7 @@
 						http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd
 						http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd">
 						
-   	<!-- ESQUEMA LISTA CLIENTES -->
+   	<!-- ESQUEMA LISTA CLIENTES
     <bean id="pldDataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close">
         <property name="driverClass" value="com.mysql.jdbc.Driver" />
         <property name="jdbcUrl" value="jdbc:mysql://localhost:3306/crm" />
@@ -17,9 +17,21 @@
         <property name="minPoolSize" value="10" />
         <property name="maxStatements" value="10" />
         <property name="testConnectionOnCheckout" value="false" />
-    </bean>
+    </bean> -->
     
-    <!-- ESQUEMA PARA EJECUCION STORED PROCEDURE -->
+    <!-- DATOS CLIENTE-->
+     <bean id="pldDataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close">
+        <property name="driverClass" value="com.mysql.jdbc.Driver" />
+        <property name="jdbcUrl" value="jdbc:mysql://28.224.30.202:3306/sugarcrm_qa" />
+        <property name="user" value="sugarcrm_ro_user" />
+        <property name="password" value="3nv2st1B1nk" />
+        <property name="maxPoolSize" value="50" />
+        <property name="minPoolSize" value="10" />
+        <property name="maxStatements" value="10" />
+        <property name="testConnectionOnCheckout" value="false" />
+    </bean> 
+    
+    <!-- ESQUEMA PARA EJECUCION STORED PROCEDURE 
      <bean id="clientDataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close">
         <property name="driverClass" value="com.microsoft.sqlserver.jdbc.SQLServerDriver" />
         <property name="jdbcUrl" value="jdbc:sqlserver://localhost;DatabaseName=MONITOR;SelectMethod=cursor" />
@@ -30,8 +42,20 @@
         <property name="maxStatements" value="10" />
         <property name="testConnectionOnCheckout" value="false" />
     </bean>
+    -->
     
-    <!-- ESQUEMA PROPIA PLD_EXT -->
+    <bean id="clientDataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close">
+        <property name="driverClass" value="com.microsoft.sqlserver.jdbc.SQLServerDriver" />
+        <property name="jdbcUrl" value="jdbc:sqlserver://28.224.30.47;DatabaseName=MONITOR;SelectMethod=cursor" />
+        <property name="user" value="imonitorplus" />
+        <property name="password" value="Investa-14" />
+        <property name="maxPoolSize" value="50" />
+        <property name="minPoolSize" value="10" />
+        <property name="maxStatements" value="10" />
+        <property name="testConnectionOnCheckout" value="false" />
+    </bean>
+    
+    <!-- ESQUEMA PROPIA PLD_EXT 
     <bean id="pldExtDataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close">
 		<property name="driverClass" value="com.mysql.jdbc.Driver" />
         <property name="jdbcUrl" value="jdbc:mysql://localhost:3306/pld_ext" />
@@ -42,4 +66,17 @@
         <property name="maxStatements" value="10" />
         <property name="testConnectionOnCheckout" value="false" />
     </bean>
+    -->
+        <!-- ESQUEMA PROPIA PLD_EXT -->
+    <bean id="clientOracleDataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close">
+		<property name="driverClass" value="oracle.jdbc.driver.OracleDriver" />
+        <property name="jdbcUrl" value="jdbc:oracle:thin:@45.40.139.98:1521:xe" />
+        <property name="user" value="VISOR" />
+        <property name="password" value="qwerty01" />
+        <property name="maxPoolSize" value="50" />
+        <property name="minPoolSize" value="10" />
+        <property name="maxStatements" value="10" />
+        <property name="testConnectionOnCheckout" value="false" />
+    </bean>
+    
 </beans>

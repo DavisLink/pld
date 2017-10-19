@@ -15,70 +15,7 @@
 						SELECT PREFIJO_SOC_MERC FROM PLD_REEMPLAZOS_SOC_MER ORDER BY LEN(PREFIJO_SOC_MERC) DESC
 	                ]]>
 	            </prop>	
-	            
-	            <prop key="obten.registro.consulta">
-	                <![CDATA[
-						SELECT top 5 
-							Id_mb_consulta
-					      ,id_cliente_crm
-					      ,status_consulta
-					      ,porcentaje_busqueda
-					      ,id_cliente
-					  FROM 
-					  	mb_consulta
-					  WHERE 	
-					  	id_cliente_crm = ?
-					  AND
-					  	id_cliente = ?
-	                ]]>
-	            </prop>          
-	            
-	            <prop key="inserta.registro.mbconsulta">
-	                <![CDATA[
-						INSERT INTO mb_consulta
-						           (id_cliente_crm
-						           ,fecha_consulta
-						           ,status_consulta
-						           ,status_descripcion
-						           ,porcentaje_busqueda
-						           ,id_cliente)
-						     VALUES
-						           (?
-						           ,?
-						           ,?
-						           ,?
-						           ,?
-						           ,?)
-					]]>
-	            </prop>     
-	            
-	             <prop key="inserta.registro.mbconsulta.cliente">
-	                <![CDATA[
-					INSERT INTO mb_consulta_cliente
-							(
-					      ,id_mb_consulta
-					      ,nombre_cliente
-					      ,apaterno_cliente
-					      ,amaterno_clientE)
-					      VALUES (?,?,?,?)
-	            ]]>
-	            </prop>  
-	                 
-	            <prop key="inserta.registro.mbconsulta.benef">
-	                <![CDATA[     
-	                 	INSERT INTO
-	                 		mb_consulta_beneficiario
-	                 			(id_mb_consulta
-						      ,nombre_beneficiario
-						      ,apaterno_beneficiario
-						      ,amaterno_beneficiario
-						 		)
-						      VALUES
-						      (?,?,?,?)
-	                 ]]>
-	            </prop>  
 	        </props>
 	    </property>
     </bean>
-    
 </beans>
