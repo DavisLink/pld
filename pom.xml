@@ -107,6 +107,12 @@
 	    <version>1.4</version>
 	</dependency>
 	
+	<!-- ojdbc6.jar example -->
+        <dependency>
+            <groupId>com.oracle</groupId>
+            <artifactId>ojdbc6</artifactId>
+            <version>11.2.0.2.0</version>
+        </dependency>
 
   </dependencies>
   
@@ -128,8 +134,42 @@
 					<encoding>ISO-8859-1</encoding>
 					<source>1.7</source>
 					<target>1.7</target>
+				</configuration>				
+			</plugin>		
+			
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jar-plugin</artifactId>
+				<configuration>
+					<archive>
+						<manifestFile>src/main/resources/META-INF/MANIFEST.MF</manifestFile>
+					</archive>
 				</configuration>
+			</plugin>			
+			
+			<plugin>
+			  <artifactId>maven-assembly-plugin</artifactId>
+			  <configuration>
+			    <archive>
+			      <manifest>
+			        <mainClass>com.legvit.pld.App</mainClass>
+			      </manifest>
+			    </archive>
+			    <descriptorRefs>
+			      <descriptorRef>jar-with-dependencies</descriptorRef>
+			    </descriptorRefs>
+			  </configuration>
+			  <executions>
+			    <execution>
+			      <id>make-assembly</id>
+			      <phase>package</phase>
+			      <goals>
+			        <goal>single</goal>
+			      </goals>
+			    </execution>
+			  </executions>
 			</plugin>
+			
 		</plugins>
 		<finalName>pld</finalName>
 	</build>
