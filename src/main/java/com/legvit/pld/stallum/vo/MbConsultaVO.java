@@ -4,18 +4,52 @@ import java.util.Date;
 
 public class MbConsultaVO {
 
-	private String idMbConsulta;
+	private int idMbConsulta;
 	
 	private String idClienteCRM;
 	
-	private String calificacion;
+	private int calificacion;
 	
-	private String porcentajeConsulta;
+	private int porcentajeConsulta;
 	
 	private String idCliente;
 	
 	private Date fechaRegistro;
 	
+	private String descripcion;
+	
+	public String getDescripcion() {
+		return descripcion;
+	}
+
+	public void setDescripcion(String descripcion) {
+		this.descripcion = descripcion;
+	}
+
+	public int getIdMbConsulta() {
+		return idMbConsulta;
+	}
+
+	public void setIdMbConsulta(int idMbConsulta) {
+		this.idMbConsulta = idMbConsulta;
+	}
+
+	public int getCalificacion() {
+		return calificacion;
+	}
+
+	public void setCalificacion(int calificacion) {
+		this.calificacion = calificacion;
+	}
+
+	public int getPorcentajeConsulta() {
+		return porcentajeConsulta;
+	}
+
+	public void setPorcentajeConsulta(int porcentajeConsulta) {
+		this.porcentajeConsulta = porcentajeConsulta;
+	}
+
 	public Date getFechaRegistro() {
 		return fechaRegistro;
 	}
@@ -24,13 +58,7 @@ public class MbConsultaVO {
 		this.fechaRegistro = fechaRegistro;
 	}
 
-	public String getIdMbConsulta() {
-		return idMbConsulta;
-	}
-
-	public void setIdMbConsulta(String idMbConsulta) {
-		this.idMbConsulta = idMbConsulta;
-	}
+	
 
 	public String getIdClienteCRM() {
 		return idClienteCRM;
@@ -38,22 +66,6 @@ public class MbConsultaVO {
 
 	public void setIdClienteCRM(String idClienteCRM) {
 		this.idClienteCRM = idClienteCRM;
-	}
-
-	public String getCalificacion() {
-		return calificacion;
-	}
-
-	public void setCalificacion(String calificacion) {
-		this.calificacion = calificacion;
-	}
-
-	public String getPorcentajeConsulta() {
-		return porcentajeConsulta;
-	}
-
-	public void setPorcentajeConsulta(String porcentajeConsulta) {
-		this.porcentajeConsulta = porcentajeConsulta;
 	}
 
 	public String getIdCliente() {

@@ -46,7 +46,7 @@ public class EnvioCorreo {
         try{
                 username = PorpertiesLoaderUtil.getInstance().getValue("pld.mail.email");
                 password = PorpertiesLoaderUtil.getInstance().getValue("pld.mail.password");
-                host = PorpertiesLoaderUtil.getInstance().getValue("pld.mail.hot");
+                host = PorpertiesLoaderUtil.getInstance().getValue("pld.mail.host");
                 port = PorpertiesLoaderUtil.getInstance().getValue("pld.mail.port");
                 starttls = PorpertiesLoaderUtil.getInstance().getValue("pld.mail.starttls");
                 authentication = PorpertiesLoaderUtil.getInstance().getValue("pld.mail.auth");

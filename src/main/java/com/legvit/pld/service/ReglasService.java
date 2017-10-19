@@ -2,6 +2,8 @@ package com.legvit.pld.service;
 
 import com.legvit.pld.stallum.vo.ClientesCRM;
 
+import java.io.File;
+
 /**
  * Contrato que define las ejecuciones de reglas del proceso de PLD
  * 
@@ -19,5 +21,5 @@ public interface ReglasService {
 	 * @param nombreCompleto
 	 *            Nombre completo del cliente a validar.
 	 */
-	void validaReglas(ClientesCRM clienteCRM, int noCoincidencias, float porcentajeCoincidencia, int calificacion);
+	void validaReglas(ClientesCRM clienteCRM, int noCoincidencias, float porcentajeCoincidencia, int calificacion, File logFile);
 }

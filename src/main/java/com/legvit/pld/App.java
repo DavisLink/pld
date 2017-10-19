@@ -11,7 +11,8 @@ public class App {
 															  "com/legvit/pld/springconfig/pld-dao.xml",
 															  "com/legvit/pld/springconfig/pld-listas-dao.xml",
 															  "com/legvit/pld/springconfig/pld-client-dao.xml",
-															  "com/legvit/pld/springconfig/pld-ext-dao.xml"};
+															 // "com/legvit/pld/springconfig/pld-ext-dao.xml",
+															  "com/legvit/pld/springconfig/pld-client-oracle-dao.xml"};
 	
     public static void main( String[] args ) {
         final ApplicationContext context = new ClassPathXmlApplicationContext(CONFIG_PATH);

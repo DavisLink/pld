@@ -46,7 +46,7 @@ public class ListasDAOImpl extends SimpleQueryJdbcDaoSupport implements ListasDA
 	@Override
 	public void insertaClienteCRM(ClientesCRM clienteCRM) {
 		String query = getQueries().getProperty("inserta.clientes.crm");
-		getJdbcTemplate().update(query, new Object[]{clienteCRM.getIdCRM(), "", clienteCRM.getIdConsulta(), clienteCRM.getFechaRegistro()});
+		getJdbcTemplate().update(query, new Object[]{clienteCRM.getIdCRM(), clienteCRM.getCalificacion(), clienteCRM.getIdConsulta(), clienteCRM.getFechaRegistro()});
 	}
 	
 	/**

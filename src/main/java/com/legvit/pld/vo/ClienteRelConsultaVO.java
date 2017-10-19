@@ -1,7 +1,7 @@
 package com.legvit.pld.vo;
 
 public class ClienteRelConsultaVO {
-    private String idMbConsulta;
+    private int idMbConsulta;
 	
 	private String nombreCliente;
 	
@@ -9,11 +9,11 @@ public class ClienteRelConsultaVO {
 	
 	private String apMaternoCliente;
 
-	public String getIdMbConsulta() {
+	public int getIdMbConsulta() {
 		return idMbConsulta;
 	}
 
-	public void setIdMbConsulta(String idMbConsulta) {
+	public void setIdMbConsulta(int idMbConsulta) {
 		this.idMbConsulta = idMbConsulta;
 	}
 

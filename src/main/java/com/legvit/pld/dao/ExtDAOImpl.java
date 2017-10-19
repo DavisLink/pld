@@ -28,7 +28,8 @@ public class ExtDAOImpl extends SimpleQueryJdbcDaoSupport implements ExtDAO {
 		getJdbcTemplate().update(query, new Object[] { controlPLDVO.getIdCRM(), 
 														controlPLDVO.getNombreCompleto(),
 														new Date(), 
-														controlPLDVO.getCalificacion() });
+														controlPLDVO.getCalificacion(),
+														controlPLDVO.getNoCoincidencias()});
 
 	}
 	

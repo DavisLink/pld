@@ -22,6 +22,16 @@ public class ClientesCRM {
 	
 	private String fechaRegistro;
 	
+	private int calificacion;
+	
+	public int getCalificacion() {
+		return calificacion;
+	}
+
+	public void setCalificacion(int calificacion) {
+		this.calificacion = calificacion;
+	}
+
 	public String getFechaRegistro() {
 		return fechaRegistro;
 	}
