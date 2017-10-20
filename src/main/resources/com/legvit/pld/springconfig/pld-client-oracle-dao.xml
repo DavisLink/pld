@@ -128,7 +128,27 @@
 	                ]]>
 	            </prop>
 	            
-	              
+	             <prop key="insert.registro.hilo">
+	                <![CDATA[
+	                
+	                		INSERT INTO 
+	                			BITACORA_HILOS_PLD (ID_REGISTRO, REGISTROS_PROCESADOS, ESTATUS, HORA_INICIO, FECHA_REGISTRO)
+	                		VALUES
+	                			(BATCH_HILOS_PLD_SEQ.NEXTVAL,?,?,?)
+	                ]]>
+	            </prop>
+	            
+				<prop key="actualiza.estatus.hilo">
+	                <![CDATA[
+	                		UPDATE 
+	                			BITACORA_HILOS_PLD 
+	                		SET 
+	                			ESTATUS = ?,
+	                			HORA_TERMINO = ?
+	                		WHERE 
+	                			ID_REGISTRO = ?
+	                ]]>
+	            </prop>
 	        </props>
 	    </property>
     </bean>
