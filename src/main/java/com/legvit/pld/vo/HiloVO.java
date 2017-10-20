@@ -39,6 +39,19 @@ public class HiloVO {
 	 * Fecha de registro.
 	 */
 	private Date fechaRegistro;
+	
+	/**
+	 * Archivo de log para el administrador.
+	 */
+	private String logFile;
+	
+	public String getLogFile() {
+		return logFile;
+	}
+
+	public void setFile(String logFile) {
+		this.logFile = logFile;
+	}
 
 	public int getIdRegistro() {
 		return idRegistro;

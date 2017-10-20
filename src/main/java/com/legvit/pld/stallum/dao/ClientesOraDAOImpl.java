@@ -137,7 +137,7 @@ RowMapper<MbConsultaVO> MbConsultaMapper = new RowMapper<MbConsultaVO>() {
 			controlVO.setCalificacion(rs.getInt("calificacion"));
 			controlVO.setIdCRM(rs.getString("id_crm"));
 			controlVO.setId(rs.getInt("id_registro"));
-			return null;
+			return controlVO;
 		}
 	};
 	
@@ -186,6 +186,7 @@ RowMapper<MbConsultaVO> MbConsultaMapper = new RowMapper<MbConsultaVO>() {
 				ps.setInt(2, hiloVO.getEstatus());
 				ps.setString(3, hiloVO.getHoraInicio());
 				ps.setDate(4, new java.sql.Date(hiloVO.getFechaRegistro().getTime()));
+				ps.setString(5, hiloVO.getLogFile());
 				return ps;
 			}
 		}, keyHolder);
@@ -216,4 +217,54 @@ RowMapper<MbConsultaVO> MbConsultaMapper = new RowMapper<MbConsultaVO>() {
 				clienteCRM.isProcesado() });
 	}
 	
+	/**
+	 * Mapper para los registros de la tabla de control.
+	 */
+	RowMapper<HiloVO> HilosControl = new RowMapper<HiloVO>() {
+
+		@Override
+		public HiloVO mapRow(ResultSet rs, int rowNum) throws SQLException {
+			HiloVO hiloVO = new HiloVO();
+			return hiloVO;
+		}
+	};
+	
+	
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public List<HiloVO> obtenHilosErroneos(int idEstatus) {
+		String query = getQueries().getProperty("selecciona.hilo.por.estatus");
+		List<HiloVO> listado = getJdbcTemplate().query(query, HilosControl, new Object[]{ idEstatus });
+		return listado;
+	}
+	
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public List<ClientesCRM> obtenRegistrosPorHilo(int idHilo) {
+		String query = getQueries().getProperty("obten.clientes.crm");
+		List<ClientesCRM> listado = getJdbcTemplate().query(query, new RowMapper<ClientesCRM>() {
+			
+			public ClientesCRM mapRow(ResultSet rs, int rowNum) throws SQLException {
+				ClientesCRM aux = new ClientesCRM();
+				aux.setIdCRM(rs.getString("ID_CRM"));
+				aux.setIdUnicoCliente(rs.getString("ID_UNICO_CLIENTE"));
+				aux.setNombres(rs.getString("NOMBRES"));
+				aux.setApellidoPaterno(rs.getString("APELLIDO_PATERNO"));
+				aux.setApellidoMaterno(rs.getString("APELLIDO_MATERNO"));
+				aux.setTipoCliente(rs.getString("TIPO_CLIENTE"));
+				aux.setTipoPersona(rs.getString("TIPO_PERSONA"));
+				aux.setTipoRazonSocial(rs.getString("TIPO_RAZON_SOCIAL"));
+				aux.setIdConsulta(rs.getString("ID_CONSULTA"));
+				aux.setCalificacion(rs.getInt("CALIFICACION"));
+				aux.setIdHilo(rs.getInt("ID_HILO"));
+				aux.setProcesado(rs.getBoolean("PROCESADO"));
+				return aux;
+			}
+		});
+		return listado;
+	}
 }

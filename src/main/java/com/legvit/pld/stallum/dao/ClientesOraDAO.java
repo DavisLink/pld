@@ -127,4 +127,21 @@ public interface ClientesOraDAO {
 	 *            tabla de r&eacute;plica,
 	 */
 	void insertaReplicaRegistro(ClientesCRM clienteCRM) ;
+	
+	/**
+	 * Obtiene los hilos que fallaron en la ejecuci&oacute;n
+	 * 
+	 * @param idEstatus
+	 *            identificador del estatus del hilo.
+	 * 
+	 * @return Listado de hilos que tuvieron error en la ejecuci&oacute;n.
+	 */
+	List<HiloVO> obtenHilosErroneos(int idEstatus);
+	
+	/**
+	 * Obtiene los registros correspondientes al hilo enviado como par&aacute;metro.
+	 * 
+	 * @return listado de clientes.
+	 */
+	List<ClientesCRM> obtenRegistrosPorHilo(int idHilo);
 }

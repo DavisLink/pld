@@ -32,6 +32,8 @@ public class Procesar implements Runnable {
 
 	private int idHilo;
 	
+	private File logFile;
+	
 	public Procesar() {}
 	
 	/**
@@ -45,12 +47,13 @@ public class Procesar implements Runnable {
 	 * @param reglasService
 	 *            Instancia del objeto de negocio.
 	 */
-	public Procesar(List<ClientesCRM> listadoClientes, MotorBusquedaService motorBusquedaService, ReglasService reglasService, ClientesOraDAO clientesOraDAO, int idHilo) {
+	public Procesar(List<ClientesCRM> listadoClientes, MotorBusquedaService motorBusquedaService, ReglasService reglasService, ClientesOraDAO clientesOraDAO, int idHilo, File logFile) {
 		this.listadoClientes = listadoClientes; 
 		this.motorBusquedaService = motorBusquedaService;
 		this.reglasService = reglasService;
 		this.clientesOraDAO = clientesOraDAO;
 		this.idHilo = idHilo;
+		this.logFile = logFile;
 	}
 
 	/**
@@ -58,19 +61,7 @@ public class Procesar implements Runnable {
 	 */
 	public void run() {
 		System.out.println("Realizando el procesamiento ...");
-		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 		Calendar cal = Calendar.getInstance();
-		String rutaArchivo = PorpertiesLoaderUtil.getInstance().getValue("pld.ruta.archivo.log") + dateFormat.format(cal.getTime()) + ".txt";
-		File logFile = new File(rutaArchivo);
-		try {
-			if (logFile.createNewFile()) {
-				System.out.println("Archivo creado correctamente");
-			} else {
-				System.out.println("Error en la creacion del archivo");
-			}	
-		} catch (IOException io) {
-			io.printStackTrace();
-		}
 		
 		SimpleDateFormat sdfLog = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss");
 		Calendar calLog = Calendar.getInstance();
@@ -107,9 +98,8 @@ public class Procesar implements Runnable {
 		//SE ACTAULIZA LA TABLA DE HILOS PARA CAMBIAR EL ESTATUS A FINALIZADO
 		SimpleDateFormat sdf = new SimpleDateFormat("hh:mm:ss");
 		cal = Calendar.getInstance();
-		//ESTATUS 1 FINALIZADO
+		//ESTATUS 1 FINALIZADO EN EL HILO
 		clientesOraDAO.actualizaHilo(1, sdf.format(cal.getTime()), idHilo);
-		
 	}
 	
 	public List<ClientesCRM> getListadoClientes() {

@@ -132,9 +132,9 @@
 	                <![CDATA[
 	                
 	                		INSERT INTO 
-	                			BITACORA_HILOS_PLD (ID_REGISTRO, REGISTROS_PROCESADOS, ESTATUS, HORA_INICIO, FECHA_REGISTRO)
+	                			BITACORA_HILOS_PLD (ID_REGISTRO, REGISTROS_PROCESADOS, ESTATUS, HORA_INICIO, FECHA_REGISTRO, LOG_FILE)
 	                		VALUES
-	                			(BATCH_HILOS_PLD_SEQ.NEXTVAL,?,?,?)
+	                			(BATCH_HILOS_PLD_SEQ.NEXTVAL,?,?,?,?)
 	                ]]>
 	            </prop>
 	            
@@ -156,6 +156,41 @@
 	                		BITACORA_REGISTRO_HILOS_PLD (ID_CRM, ID_UNICO_CLIENTE, NOMBRES, APELLIDO_PATERNO, APELLIDO_MATERNO, TIPO_RAZON_SOCIAL, TIPO_PERSONA, TIPO_CLIENTE, ID_CONSULTA, FECHA_REGISTRO, CALIFICACION, ID_HILO, PROCESADO)
 						VALUES
 	                		(BATCH_BITACORA_REGISTRO_HILOS_SEQ,?,?,?,?,?,?,?,?,?,?,?,?)
+	                ]]>
+	            </prop>
+	            
+	            <prop key="selecciona.hilo.por.estatus">
+	                <![CDATA[
+	                		SELECT 
+	                			ESTATUS,
+	                			ID_REGISTRO
+	                		FROM 
+	                			BITACORA_HILOS_PLD 
+	                		WHERE 
+	                			ESTATUS = ?
+	                ]]>
+	            </prop>
+	            
+	            <prop key="obten.clientes.crm">
+	                <![CDATA[
+	                		SELECT
+	                			ID_CRM, 
+	                			ID_UNICO_CLIENTE, 
+	                			NOMBRES, 
+	                			APELLIDO_PATERNO, 
+	                			APELLIDO_MATERNO, 
+	                			TIPO_RAZON_SOCIAL, 
+	                			TIPO_PERSONA, 
+	                			TIPO_CLIENTE, 
+	                			ID_CONSULTA, 
+	                			FECHA_REGISTRO, 
+	                			CALIFICACION, 
+	                			ID_HILO, 
+	                			PROCESADO
+	                		FROM 	
+	                			BITACORA_REGISTRO_HILOS_PLD
+	                		WHERE 
+	                			ID_HILO = ?
 	                ]]>
 	            </prop>
 	        </props>

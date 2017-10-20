@@ -1,5 +1,8 @@
 package com.legvit.pld.service;
 
+import java.io.File;
+import java.util.List;
+
 import com.legvit.pld.stallum.vo.ClientesCRM;
 import com.legvit.pld.vo.HiloVO;
 
@@ -43,4 +46,23 @@ public interface HilosService {
 	 *            tabla de r&eacute;plica,
 	 */
 	void insertaReplicaRegistro(ClientesCRM clienteCRM);
+	
+	/**
+	 * Obtiene los hilos que fallaron en la ejecuci&oacute;n
+	 * 
+	 * @return Listado de hilos que tuvieron error en la ejecuci&oacute;n.
+	 */
+	List<HiloVO> obtenHilosErroneos(int idEstatus);
+	
+	/**
+	 * Obtiene los registros correspondientes al hilo enviado como par&aacute;metro.
+	 * 
+	 * @return listado de clientes.
+	 */
+	List<ClientesCRM> obtenRegistrosPorHilo(int idHilo);
+	
+	/**
+	 * Realiza la creaci&oacute;n de los hilos para procesamiento de los registros.
+	 */
+	Thread creaHilo(List<ClientesCRM> listado, boolean insertaListado, int noHilo, File logFile);
 }
