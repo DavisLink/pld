@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.legvit.pld.stallum.dao.ClientesOraDAO;
+import com.legvit.pld.stallum.vo.ClientesCRM;
 import com.legvit.pld.vo.HiloVO;
 
 /**
@@ -22,8 +23,8 @@ public class HilosServiceImpl implements HilosService {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public void insertaHilo(HiloVO hiloVO) {
-		clientesOraDAO.insertaHilo(hiloVO);
+	public int insertaHilo(HiloVO hiloVO) {
+		return clientesOraDAO.insertaHilo(hiloVO);
 	}
 
 	/**
@@ -32,5 +33,13 @@ public class HilosServiceImpl implements HilosService {
 	@Override
 	public void actualizaHilo(int estatus, String horaTermino, int idRegistro) {
 		clientesOraDAO.actualizaHilo(estatus, horaTermino, idRegistro);
+	}
+	
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public void insertaReplicaRegistro(ClientesCRM clienteCRM) {
+		clientesOraDAO.insertaReplicaRegistro(clienteCRM);
 	}
 }

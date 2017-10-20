@@ -13,6 +13,7 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 
+import com.legvit.pld.stallum.vo.ClientesCRM;
 import com.legvit.pld.stallum.vo.MbConsultaVO;
 import com.legvit.pld.vo.ClienteRelConsultaVO;
 import com.legvit.pld.vo.ControlPLDVO;
@@ -172,10 +173,25 @@ RowMapper<MbConsultaVO> MbConsultaMapper = new RowMapper<MbConsultaVO>() {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public void insertaHilo(HiloVO hiloVO) {
-		String query = getQueries().getProperty("insert.registro.hilo");
-		getJdbcTemplate().update(query, new Object[] { hiloVO.getRegistrosProcesados(), hiloVO.getEstatus(),
-				hiloVO.getHoraInicio(), hiloVO.getFechaRegistro() });
+	public int insertaHilo(final HiloVO hiloVO) {
+		final String query = getQueries().getProperty("insert.registro.hilo");
+		KeyHolder keyHolder = new GeneratedKeyHolder();
+		getJdbcTemplate().update(new PreparedStatementCreator() {
+
+			@Override
+			public PreparedStatement createPreparedStatement(
+					Connection connection) throws SQLException {
+				PreparedStatement ps = connection.prepareStatement(query, new String[] { "ID_MB_CONSULTA" });
+				ps.setInt(1, hiloVO.getRegistrosProcesados());
+				ps.setInt(2, hiloVO.getEstatus());
+				ps.setString(3, hiloVO.getHoraInicio());
+				ps.setDate(4, new java.sql.Date(hiloVO.getFechaRegistro().getTime()));
+				return ps;
+			}
+		}, keyHolder);
+
+		int key = ((BigDecimal) keyHolder.getKey()).intValue();
+		return key;
 	}
 	
 	/**
@@ -183,7 +199,21 @@ RowMapper<MbConsultaVO> MbConsultaMapper = new RowMapper<MbConsultaVO>() {
 	 */
 	@Override
 	public void actualizaHilo(int estatus, String horaTermino, int idRegistro) {
-		String query = getQueries().getProperty("insert.registro.hilo");
+		String query = getQueries().getProperty("actualiza.estatus.hilo");
 		getJdbcTemplate().update(query, new Object[] { estatus, horaTermino, idRegistro });
 	}
+	
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public void insertaReplicaRegistro(ClientesCRM clienteCRM) {
+		String query = getQueries().getProperty("inserta.respaldo.registro");
+		getJdbcTemplate().update(query, new Object[] { clienteCRM.getIdUnicoCliente(), clienteCRM.getNombres(),
+				clienteCRM.getApellidoPaterno(), clienteCRM.getApellidoMaterno(), clienteCRM.getTipoRazonSocial(),
+				clienteCRM.getTipoPersona(), clienteCRM.getTipoCliente(), clienteCRM.getIdConsulta(),
+				clienteCRM.getFechaRegistro(), clienteCRM.getCalificacion(), clienteCRM.getIdHilo(),
+				clienteCRM.isProcesado() });
+	}
+	
 }

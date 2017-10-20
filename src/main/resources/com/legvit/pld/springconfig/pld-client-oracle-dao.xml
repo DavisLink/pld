@@ -149,6 +149,15 @@
 	                			ID_REGISTRO = ?
 	                ]]>
 	            </prop>
+	
+	            <prop key="inserta.respaldo.registro">
+	                <![CDATA[
+	                	INSERT INTO
+	                		BITACORA_REGISTRO_HILOS_PLD (ID_CRM, ID_UNICO_CLIENTE, NOMBRES, APELLIDO_PATERNO, APELLIDO_MATERNO, TIPO_RAZON_SOCIAL, TIPO_PERSONA, TIPO_CLIENTE, ID_CONSULTA, FECHA_REGISTRO, CALIFICACION, ID_HILO, PROCESADO)
+						VALUES
+	                		(BATCH_BITACORA_REGISTRO_HILOS_SEQ,?,?,?,?,?,?,?,?,?,?,?,?)
+	                ]]>
+	            </prop>
 	        </props>
 	    </property>
     </bean>

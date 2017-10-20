@@ -8,6 +8,7 @@ import java.util.Calendar;
 import java.util.List;
 
 import com.legvit.pld.service.ReglasService;
+import com.legvit.pld.stallum.dao.ClientesOraDAO;
 import com.legvit.pld.stallum.service.MotorBusquedaService;
 import com.legvit.pld.stallum.vo.ClientesCRM;
 import com.legvit.pld.stallum.vo.Persona;
@@ -27,6 +28,10 @@ public class Procesar implements Runnable {
 	
 	private ReglasService reglasService;
 	
+	private ClientesOraDAO clientesOraDAO;
+
+	private int idHilo;
+	
 	public Procesar() {}
 	
 	/**
@@ -40,10 +45,12 @@ public class Procesar implements Runnable {
 	 * @param reglasService
 	 *            Instancia del objeto de negocio.
 	 */
-	public Procesar(List<ClientesCRM> listadoClientes, MotorBusquedaService motorBusquedaService, ReglasService reglasService) {
+	public Procesar(List<ClientesCRM> listadoClientes, MotorBusquedaService motorBusquedaService, ReglasService reglasService, ClientesOraDAO clientesOraDAO, int idHilo) {
 		this.listadoClientes = listadoClientes; 
 		this.motorBusquedaService = motorBusquedaService;
 		this.reglasService = reglasService;
+		this.clientesOraDAO = clientesOraDAO;
+		this.idHilo = idHilo;
 	}
 
 	/**
@@ -96,6 +103,12 @@ public class Procesar implements Runnable {
 			calLog = Calendar.getInstance();
 			System.out.println("Registro : " + aux.getIdCRM() + " termino de procesamiento: " + sdfLog.format(calLog.getTime()));
 		}
+		
+		//SE ACTAULIZA LA TABLA DE HILOS PARA CAMBIAR EL ESTATUS A FINALIZADO
+		SimpleDateFormat sdf = new SimpleDateFormat("hh:mm:ss");
+		cal = Calendar.getInstance();
+		//ESTATUS 1 FINALIZADO
+		clientesOraDAO.actualizaHilo(1, sdf.format(cal.getTime()), idHilo);
 		
 	}
 	

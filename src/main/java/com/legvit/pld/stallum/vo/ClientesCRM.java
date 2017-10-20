@@ -24,6 +24,26 @@ public class ClientesCRM {
 	
 	private int calificacion;
 	
+	private int idHilo;
+	
+	private boolean procesado;
+	
+	public int getIdHilo() {
+		return idHilo;
+	}
+
+	public void setIdHilo(int idHilo) {
+		this.idHilo = idHilo;
+	}
+
+	public boolean isProcesado() {
+		return procesado;
+	}
+
+	public void setProcesado(boolean procesado) {
+		this.procesado = procesado;
+	}
+
 	public int getCalificacion() {
 		return calificacion;
 	}
