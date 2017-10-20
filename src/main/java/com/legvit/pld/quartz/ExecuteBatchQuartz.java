@@ -40,6 +40,8 @@ public class ExecuteBatchQuartz {
 	TercerosService tercerosService;
 	
 	public void execute() {
+		
+		System.out.println("Prueba ...");
 		try {
 			DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 			Calendar cal = Calendar.getInstance();
