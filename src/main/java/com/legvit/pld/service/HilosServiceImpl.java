@@ -99,9 +99,9 @@ public class HilosServiceImpl implements HilosService {
 		hiloVO.setEstatus(0);
 		hiloVO.setHoraInicio(sdf.format(hilo));
 		hiloVO.setFechaRegistro(hilo);
-		int idHilo = hilosService.insertaHilo(hiloVO);
+		int idHilo = insertaHilo(hiloVO);
 		
-		Thread tProcesa = new Thread(new Procesar(listado, motorBusquedaService, reglasService, clientesOraDAO, idHilo, logFile));
+		Thread tProcesa = new Thread(new Procesar(listado, motorBusquedaService, reglasService, clientesOraDAO, idHilo, logFile, hilosService));
 		tProcesa.setName("Thread_PLD_" + noHilo);
 		
 		if (insertaListado) {
@@ -129,7 +129,15 @@ public class HilosServiceImpl implements HilosService {
 			clienteCRM.setTipoPersona(aux.getTipoPersona());
 			clienteCRM.setTipoRazonSocial(aux.getTipoRazonSocial());
 			clienteCRM.setIdHilo(idHilo);
-			hilosService.insertaReplicaRegistro(clienteCRM);
+			insertaReplicaRegistro(clienteCRM);
 		}
+	}
+	
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public void actualizaEstatusRegistroReplica(String idCRM, int estatus) {
+		clientesOraDAO.actualizaEstatusRegistroReplica(idCRM, estatus);
 	}
 }

@@ -65,4 +65,11 @@ public interface HilosService {
 	 * Realiza la creaci&oacute;n de los hilos para procesamiento de los registros.
 	 */
 	Thread creaHilo(List<ClientesCRM> listado, boolean insertaListado, int noHilo, File logFile);
+	
+	/**
+	 * Realiza la actualizaci&oacute;n del registro en la tabla de r&eacute;plica. 
+	 * 
+	 * @param idRegistro identificador del registro.
+	 */
+	void actualizaEstatusRegistroReplica(String idCRM, int estatus);
 }

@@ -153,9 +153,9 @@
 	            <prop key="inserta.respaldo.registro">
 	                <![CDATA[
 	                	INSERT INTO
-	                		BITACORA_REGISTRO_HILOS_PLD (ID_CRM, ID_UNICO_CLIENTE, NOMBRES, APELLIDO_PATERNO, APELLIDO_MATERNO, TIPO_RAZON_SOCIAL, TIPO_PERSONA, TIPO_CLIENTE, ID_CONSULTA, FECHA_REGISTRO, CALIFICACION, ID_HILO, PROCESADO)
+	                		BITACORA_REGISTRO_HILOS_PLD (ID_REGISTRO, ID_CRM, ID_UNICO_CLIENTE, NOMBRES, APELLIDO_PATERNO, APELLIDO_MATERNO, TIPO_RAZON_SOCIAL, TIPO_PERSONA, TIPO_CLIENTE, ID_CONSULTA, FECHA_REGISTRO, CALIFICACION, ID_HILO, PROCESADO)
 						VALUES
-	                		(BATCH_BITACORA_REGISTRO_HILOS_SEQ,?,?,?,?,?,?,?,?,?,?,?,?)
+	                		(BATCH_BITACORA_REGISTRO_HILOS_SEQ,?,?,?,?,?,?,?,?,?,?,?,?,?)
 	                ]]>
 	            </prop>
 	            
@@ -174,6 +174,7 @@
 	            <prop key="obten.clientes.crm">
 	                <![CDATA[
 	                		SELECT
+	                			ID_REGISTRO,
 	                			ID_CRM, 
 	                			ID_UNICO_CLIENTE, 
 	                			NOMBRES, 
@@ -191,6 +192,17 @@
 	                			BITACORA_REGISTRO_HILOS_PLD
 	                		WHERE 
 	                			ID_HILO = ?
+	                ]]>
+	            </prop>
+	            
+	            <prop key="actualiza.estatus.registro.hilo">
+	                <![CDATA[
+	                		UPDATE 
+	                			BITACORA_REGISTRO_HILOS_PLD 
+	                		SET 
+	                			PROCESADO = ?
+	                		WHERE 
+	                			ID_CRM = ?
 	                ]]>
 	            </prop>
 	        </props>

@@ -144,4 +144,11 @@ public interface ClientesOraDAO {
 	 * @return listado de clientes.
 	 */
 	List<ClientesCRM> obtenRegistrosPorHilo(int idHilo);
+	
+	/**
+	 * Realiza la actualizaci&oacute;n del registro en la tabla de r&eacute;plica. 
+	 * 
+	 * @param idRegistro identificador del registro.
+	 */
+	void actualizaEstatusRegistroReplica(String idCRM, int estatus);
 }

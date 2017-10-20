@@ -28,6 +28,16 @@ public class ClientesCRM {
 	
 	private boolean procesado;
 	
+	private int idRegistro;
+	
+	public int getIdRegistro() {
+		return idRegistro;
+	}
+
+	public void setIdRegistro(int idRegistro) {
+		this.idRegistro = idRegistro;
+	}
+
 	public int getIdHilo() {
 		return idHilo;
 	}

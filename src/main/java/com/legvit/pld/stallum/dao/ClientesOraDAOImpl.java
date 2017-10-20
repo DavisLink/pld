@@ -250,6 +250,7 @@ RowMapper<MbConsultaVO> MbConsultaMapper = new RowMapper<MbConsultaVO>() {
 			
 			public ClientesCRM mapRow(ResultSet rs, int rowNum) throws SQLException {
 				ClientesCRM aux = new ClientesCRM();
+				aux.setIdRegistro(rs.getInt("ID_REGISTRO"));
 				aux.setIdCRM(rs.getString("ID_CRM"));
 				aux.setIdUnicoCliente(rs.getString("ID_UNICO_CLIENTE"));
 				aux.setNombres(rs.getString("NOMBRES"));
@@ -266,5 +267,14 @@ RowMapper<MbConsultaVO> MbConsultaMapper = new RowMapper<MbConsultaVO>() {
 			}
 		});
 		return listado;
+	}
+	
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public void actualizaEstatusRegistroReplica(String idCRM, int estatus) {
+		String query = getQueries().getProperty("actualiza.estatus.registro.hilo");
+		getJdbcTemplate().update(query, new Object[] { estatus, idCRM });
 	}
 }

@@ -7,6 +7,9 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
+import com.legvit.pld.service.HilosService;
 import com.legvit.pld.service.ReglasService;
 import com.legvit.pld.stallum.dao.ClientesOraDAO;
 import com.legvit.pld.stallum.service.MotorBusquedaService;
@@ -29,6 +32,8 @@ public class Procesar implements Runnable {
 	private ReglasService reglasService;
 	
 	private ClientesOraDAO clientesOraDAO;
+	
+	private HilosService hilosService;
 
 	private int idHilo;
 	
@@ -47,13 +52,14 @@ public class Procesar implements Runnable {
 	 * @param reglasService
 	 *            Instancia del objeto de negocio.
 	 */
-	public Procesar(List<ClientesCRM> listadoClientes, MotorBusquedaService motorBusquedaService, ReglasService reglasService, ClientesOraDAO clientesOraDAO, int idHilo, File logFile) {
+	public Procesar(List<ClientesCRM> listadoClientes, MotorBusquedaService motorBusquedaService, ReglasService reglasService, ClientesOraDAO clientesOraDAO, int idHilo, File logFile, HilosService hilosService) {
 		this.listadoClientes = listadoClientes; 
 		this.motorBusquedaService = motorBusquedaService;
 		this.reglasService = reglasService;
 		this.clientesOraDAO = clientesOraDAO;
 		this.idHilo = idHilo;
 		this.logFile = logFile;
+		this.hilosService = hilosService; 
 	}
 
 	/**
@@ -93,6 +99,8 @@ public class Procesar implements Runnable {
 			}
 			calLog = Calendar.getInstance();
 			System.out.println("Registro : " + aux.getIdCRM() + " termino de procesamiento: " + sdfLog.format(calLog.getTime()));
+			hilosService.actualizaEstatusRegistroReplica(aux.getIdCRM(), 1);
+			
 		}
 		
 		//SE ACTAULIZA LA TABLA DE HILOS PARA CAMBIAR EL ESTATUS A FINALIZADO
