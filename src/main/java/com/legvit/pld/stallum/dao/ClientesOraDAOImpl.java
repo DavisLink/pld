@@ -16,6 +16,7 @@ import org.springframework.jdbc.support.KeyHolder;
 import com.legvit.pld.stallum.vo.MbConsultaVO;
 import com.legvit.pld.vo.ClienteRelConsultaVO;
 import com.legvit.pld.vo.ControlPLDVO;
+import com.legvit.pld.vo.HiloVO;
 
 public class ClientesOraDAOImpl extends SimpleQueryJdbcDaoSupport implements ClientesOraDAO {
 
@@ -165,5 +166,24 @@ RowMapper<MbConsultaVO> MbConsultaMapper = new RowMapper<MbConsultaVO>() {
 			aux = listadoControl.get(0);
 		}
 		return aux;
+	}
+	
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public void insertaHilo(HiloVO hiloVO) {
+		String query = getQueries().getProperty("insert.registro.hilo");
+		getJdbcTemplate().update(query, new Object[] { hiloVO.getRegistrosProcesados(), hiloVO.getEstatus(),
+				hiloVO.getHoraInicio(), hiloVO.getFechaRegistro() });
+	}
+	
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public void actualizaHilo(int estatus, String horaTermino, int idRegistro) {
+		String query = getQueries().getProperty("insert.registro.hilo");
+		getJdbcTemplate().update(query, new Object[] { estatus, horaTermino, idRegistro });
 	}
 }
